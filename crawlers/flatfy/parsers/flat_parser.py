@@ -1,11 +1,11 @@
 import re
 import numpy as np
 
-from typing import Union, List
+from typing import Union
 from bs4 import BeautifulSoup
 
 from locators.flat_locators import FlatLocators as FLoc
-from parsers.utils import get_minfin_currency_rate
+from utils import get_minfin_currency_rate
 
 
 class FlatParser:

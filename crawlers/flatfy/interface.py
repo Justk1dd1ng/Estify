@@ -1,6 +1,5 @@
-from flatfycrawler import FlatfyCrawler, FlatfyDriver
+from flatfycrawler import FlatfyCrawler
 from pages.rent_flat_page import FlatsPage
-from parsers.utils import get_minfin_currency_rate
 
 
 def scrape_page():
@@ -16,4 +15,4 @@ origins = []
 for page in range(50):
     print(page)
     crawler.get_page(page)
-    origins.extend([flat.origin_site for flat in crawler.page.flats_list])
+    origins.extend([flat.origin_site for flat in crawler.page.flats_preview_list])
