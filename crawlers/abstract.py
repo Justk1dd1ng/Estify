@@ -151,6 +151,15 @@ class FlatsPage:
         return [self.flat_preview_parser(tag) for tag in self.soup.select(self.locators.FLAT)]
 
 
+class ImageCrawler:
+
+    def __init__(self, driver: Driver):
+
+        self.driver: Union[None, Driver] = driver
+
+
+
+
 
 
 

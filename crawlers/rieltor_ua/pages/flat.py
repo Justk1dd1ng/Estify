@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 
 from rieltor_ua.locators import URL_GLOBAL
 from abstract import FlatPreview, Flat
-from rieltor_ua.locators.flat_locators import RieltorFlatPreviewLocators, RieltorFlatLocators
+from rieltor_ua.locators.flat_locators import RieltorFlatPreviewLocators, RieltorFlatLocators, \
+    RieltorPremiumFlatLocators
 
 
 class RieltorsFlatPreview(FlatPreview):
@@ -32,13 +33,14 @@ class RieltorFlat(Flat):
 
         super().__init__(flat_soup, url)
         self.locators = RieltorFlatLocators
+        self.source = URL_GLOBAL
 
     @property
     def address(self) -> str:
 
         link = self.soup.select_one(self.locators.ADRESS)
 
-        return link.text.strip().replace('Здам квартиру ', '')
+        return link.text.strip().replace('Сдам квартиру ', '')
 
     @property
     def price(self) -> Union[int, float]:
@@ -94,7 +96,7 @@ class RieltorFlat(Flat):
 
         properties = self.soup.select(self.locators.AREA)
         for link in properties:
-            if 'поверх' in link.text:
+            if 'этаж' in link.text:
 
                 floors_text = link.text
                 break
@@ -108,12 +110,38 @@ class RieltorFlat(Flat):
             return
 
 
+class RielorFlatPremium(RieltorFlat):
 
+    def __init__(self, flat_soup: BeautifulSoup, url: str):
 
+        super().__init__(flat_soup, url)
+        self.locators = RieltorPremiumFlatLocators
 
+    @property
+    def total_area(self) -> int:
 
+        for param in self._get_params():
+            if 'площадь' in param.select_one(self.locators.PARAM_TEXT).text.lower():
 
+                return int(param.select_one(self.locators.PARAM_IMG).text.replace('м2', ''))
 
+    @property
+    def total_rooms(self) -> int:
 
+        for param in self._get_params():
+            if 'квартира' in param.select_one(self.locators.PARAM_TEXT).text.lower():
+
+                return int(''.join([c for c in param.select_one(self.locators.PARAM_IMG).text if c.isdigit()]))
+
+    def _get_floors(self) -> Union[List[int], None]:
+
+        for param in self._get_params():
+            if 'этаж' in param.select_one(self.locators.PARAM_TEXT).text.lower():
+
+                return [int(floor) for floor in param.select_one(self.locators.PARAM_IMG).text.split(r'/')]
+
+    def _get_params(self) -> List[BeautifulSoup]:
+
+        return self.soup.select(self.locators.PARAMS)
 
 

@@ -3,7 +3,7 @@ from typing import List, Union
 from abstract import Crawler, Driver
 from rieltor_ua.locators import URL_PAGE_PLACEHOLDER
 from rieltor_ua.pages.flats_list import RieltorsPage
-from rieltor_ua.pages.flat import RieltorFlat
+from rieltor_ua.pages.flat import RieltorFlat, RielorFlatPremium
 
 
 class RieltorDriver(Driver):
@@ -37,6 +37,14 @@ class RieltorCrawler(Crawler):
         for flat_link in self.flats_page.flats_link_list:
             print(n)
             self.driver.get_url(flat_link)
-            self.crawled_flats.append(RieltorFlat(self.driver.get_soup(), flat_link))
+
+            flat_soup = self.driver.get_soup()
+
+            # Need to check if ad is premium, cause premium and non-premium markups are different
+            if flat_soup.select_one('div.prem_offer_header_title'):
+                self.crawled_flats.append(RielorFlatPremium(flat_soup, flat_link))
+            else:
+                self.crawled_flats.append(RieltorFlat(flat_soup, flat_link))
+
             n += 1
 
