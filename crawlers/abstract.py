@@ -29,6 +29,12 @@ class FlatLocators:
     AREA = None
 
 
+class ImageLocators:
+
+    CONTAINER = None
+    LINK = None
+
+
 class Driver:
 
     def __init__(self):
@@ -151,11 +157,28 @@ class FlatsPage:
         return [self.flat_preview_parser(tag) for tag in self.soup.select(self.locators.FLAT)]
 
 
+class ImageDriver(Driver):
+
+    def __init__(self):
+        super().__init__()
+
+
 class ImageCrawler:
 
-    def __init__(self, driver: Driver):
+    def __init__(self, url: str):
 
-        self.driver: Union[None, Driver] = driver
+        self.url = url
+        self.locators = ImageLocators
+        self.driver: Union[None, ImageDriver] = None
+
+
+class FlatImage:
+
+    def __init__(self, img_binary: bytes, flat_id: str):
+
+        self.img_binary = img_binary
+        self.flat_id = flat_id
+
 
 
 

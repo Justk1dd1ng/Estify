@@ -4,9 +4,10 @@ from typing import Union, List
 from bs4 import BeautifulSoup
 
 from rieltor_ua.locators import URL_GLOBAL
-from abstract import FlatPreview, Flat
+from abstract import FlatPreview, Flat, ImageCrawler, FlatImage
 from rieltor_ua.locators.flat_locators import RieltorFlatPreviewLocators, RieltorFlatLocators, \
-    RieltorPremiumFlatLocators
+    RieltorPremiumFlatLocators, RieltorImageLocators
+from rieltor_ua.pages.images import RieltorImageCrawler
 
 
 class RieltorsFlatPreview(FlatPreview):
@@ -34,6 +35,7 @@ class RieltorFlat(Flat):
         super().__init__(flat_soup, url)
         self.locators = RieltorFlatLocators
         self.source = URL_GLOBAL
+        self.image_crawler = RieltorImageCrawler(self.url)
 
     @property
     def address(self) -> str:
@@ -92,6 +94,15 @@ class RieltorFlat(Flat):
 
         return max(self._get_floors()) if self._get_floors() else 0
 
+    @property
+    def id(self) -> str:
+
+        return self.url.split(r'/')[-2]
+
+    def get_imgs_list(self) -> List[FlatImage]:
+
+        return [FlatImage(img_bin, self.id) for img_bin in self.image_crawler.get_images_binary()]
+
     def _get_floors(self) -> Union[List[int], None]:
 
         properties = self.soup.select(self.locators.AREA)
@@ -143,5 +154,4 @@ class RielorFlatPremium(RieltorFlat):
     def _get_params(self) -> List[BeautifulSoup]:
 
         return self.soup.select(self.locators.PARAMS)
-
 

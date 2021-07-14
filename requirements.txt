@@ -3,3 +3,5 @@ webdriver-manager~=3.4.2
 
 beautifulsoup4~=4.9.3
 requests~=2.25.1
+
+boto3~=1.17.109

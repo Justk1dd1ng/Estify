@@ -1,4 +1,4 @@
-from abstract import FlatPreviewLocators, FlatLocators
+from abstract import FlatPreviewLocators, FlatLocators, ImageLocators
 
 
 class RieltorFlatPreviewLocators(FlatPreviewLocators):
@@ -24,6 +24,10 @@ class RieltorPremiumFlatLocators(RieltorFlatLocators):
     PARAM_IMG = f'{PARAMS}_img'
     PARAM_TEXT = f'{PARAMS}_text'
 
+
+class RieltorImageLocators(ImageLocators):
+
+    LINK = 'ul.ov-gallery__main li.items a'
 
 
 
