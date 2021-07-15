@@ -2,6 +2,7 @@ import re
 import requests
 
 from typing import Union, List
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -102,6 +103,11 @@ class Flat:
     @property
     def building_total_floors(self) -> int:
         return
+
+    @property
+    def timestamp(self) -> datetime:
+
+        return datetime.utcnow()
 
     @staticmethod
     def convert_price(price_string: str):

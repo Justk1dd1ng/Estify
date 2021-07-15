@@ -56,7 +56,7 @@ class RieltorFlat(Flat):
 
         link = self.soup.select_one(self.locators.DISTRICT)
 
-        return link.string.replace(' р-н', '')
+        return link.string.replace(' р-н', '') if link else None
 
     @property
     def total_area(self) -> int:
