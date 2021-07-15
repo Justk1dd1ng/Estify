@@ -43,6 +43,8 @@ class Driver:
         self.url_page_placeholder: Union[None, str] = None
         self.options = Options()
         self.options.headless = True
+        self.options.add_argument('--no-sandbox')
+        self.options.add_argument('--disable-dev-shm-usage')
         self.chrome = webdriver.Chrome(ChromeDriverManager().install(), options=self.options)
 
     def get_url(self, url: str):
@@ -184,14 +186,4 @@ class FlatImage:
 
         self.img_binary = img_binary
         self.flat_id = flat_id
-
-
-
-
-
-
-
-
-
-
 

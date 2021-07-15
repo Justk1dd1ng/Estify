@@ -3,8 +3,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from locators.third_party_locators import MinfinLocators as MFLoc
-from parsers.exceptions import CurrencyError
+from thirdparty_locators import MinfinLocators as MFLoc
+from exceptions import CurrencyError
 
 
 def get_minfin_currency_rate(currency: str) -> float:

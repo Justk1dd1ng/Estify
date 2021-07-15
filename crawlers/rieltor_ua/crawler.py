@@ -57,6 +57,7 @@ class RieltorCrawler(Crawler):
             flat.image_crawler.driver.chrome.close()
 
             n += 1
+        self.driver.chrome.quit()
 
     def put_images_into_s3(self):
 
