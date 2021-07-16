@@ -36,4 +36,3 @@ class RieltorImageCrawler(ImageCrawler):
             images.append(img_binary)
 
         return images
-

@@ -4,9 +4,9 @@ from typing import Union, List
 from bs4 import BeautifulSoup
 
 from rieltor_ua.locators import URL_GLOBAL
-from abstract import FlatPreview, Flat, ImageCrawler, FlatImage
+from abstract import FlatPreview, Flat, FlatImage
 from rieltor_ua.locators.flat_locators import RieltorFlatPreviewLocators, RieltorFlatLocators, \
-    RieltorPremiumFlatLocators, RieltorImageLocators
+    RieltorPremiumFlatLocators
 from rieltor_ua.pages.images import RieltorImageCrawler
 
 
@@ -154,4 +154,3 @@ class RielorFlatPremium(RieltorFlat):
     def _get_params(self) -> List[BeautifulSoup]:
 
         return self.soup.select(self.locators.PARAMS)
-

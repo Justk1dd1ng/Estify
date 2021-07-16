@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/crawlers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/crawlers/flatfy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/crawlers/rieltor_ua" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/db" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/db/cloud/aws/s3handler" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,5 +1,6 @@
 import requests
 import re
+import boto3
 
 from bs4 import BeautifulSoup
 
@@ -26,4 +27,10 @@ def get_minfin_currency_rate(currency: str) -> float:
     return round(exchange_rate, 2)
 
 
-
+def validate_aws_credentials():
+    client = boto3.client('s3')
+    try:
+        client.list_buckets()
+        return True
+    except:
+        return False
