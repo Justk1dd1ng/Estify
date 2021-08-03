@@ -18,8 +18,8 @@ ENV PATH="$PATH:/db"
 # Although it's not far too safe, we may provide aws secrets here with the following syntax:
 # ENV <MY_SECRET_KEY>=<MY_SECRET_VALUE>
 
-#ENV AWS_ACCESS_KEY_ID=
-#ENV AWS_SECRET_ACCESS_KEY=
+#ENV AWS_ACCESS_KEY_ID=<value>
+#ENV AWS_SECRET_ACCESS_KEY=<value>
 
 
 CMD ["python", "app.py"]
